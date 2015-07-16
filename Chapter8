@@ -1,0 +1,63 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+void twelveDaysOfChristmas() {
+	for (int day = 1; day < 13; day++) {
+		string dayNumber;
+		if (day == 1) dayNumber = "1st";
+		else if (day == 2) dayNumber = "2nd";
+		else if (day == 3) dayNumber = "3rd";
+		else
+			dayNumber = day + "th";
+
+		string song = "On the "+ dayNumber + " day of Christmas,\n my true love gave to me... \n";
+		cout << song;
+
+		switch (day) {
+		case 12:
+			cout << "12 Drummers Drumming \n";
+		case 11:
+			cout << "11 Pipers Piping \n";
+		case 10:
+			cout << "10 Lords a-Leaping \n";
+		case 9:
+			cout << "9 Ladies Dancing \n";
+		case 8:
+			cout << "8 Maids a-Milking \n";
+		case 7:
+			cout << "7 Swans a-Swimming \n";
+		case 6:
+			cout << "6 Geese a-Laying \n";
+		case 5:
+			cout << "5 Gold Rings \n";
+		case 4:
+			cout << "4 Calling Birds \n";
+		case 3:
+			cout << "3 French Hens \n";
+		case 2:
+			cout << "2 Turtle Doves \n";
+		case 1:
+			if (day > 1) cout << "and ";
+			cout << "a Partridge in a pear tree. \n";
+		}
+		cout << endl;
+	}
+}
+
+void ticTacToe() {
+	enum Spot { BLANK_SPOT, X_SPOT, O_SPOT };
+	
+	int topRightSquare = 0, topMiddleSquare = 0, topLeftSquare = 0;
+	int middleLeftSquare = 0, middleSquare = 0, middleRightSquare = 0;
+	int bottomLeftSquare = 0, bottomMiddleSquare = 0, bottomRightSquare = 0;
+
+	
+}
+
+int main() {
+	twelveDaysOfChristmas();
+	cin.get();
+	return 0;
+}
