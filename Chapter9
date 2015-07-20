@@ -1,34 +1,132 @@
-#include <cstdlib>
-#include <ctime>
+#include <cstdlib> //This is to use srand()
+#include <ctime> //This is to call time(NULL)
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-int randRange(int low, int high) {
+int randRange(int low, int high) { //this method gives a range of numbers to chose from.
 	return (rand() % (high - low) + low);
+	/* rand() returns a number from 0 to randMax. This method returns the remainder
+	   of the random number/ the range
+	*/
 }
 
 void coinFlip() {
-	int headsOrTails = randRange(0, 2);
+	int headsOrTails = randRange(0, 2); //two choices: 1 or 2
 	if (headsOrTails)
 		cout << headsOrTails << " = heads" << endl;
 	else
 		cout << headsOrTails << " = tails" << endl;
 }
 
-void highLow() {
+void highLowPlayer() { //This method is for the player
 	int myNum = randRange(1, 101);
 	int userNum;
-	cout << "Pick a number.\n";
+	cout << "Pick a number between 1 and 100, inclusive.\n";
 	cin >> userNum;
+	while (userNum != myNum) {
+		if (userNum < myNum)
+			cout << "Your number was too low. Try again." << endl;
+		else
+			cout << "Your number was too high. Try again." << endl;
+		cin >> userNum;
+	}
 
-	
+	cout << "Correct! You picked " << userNum << ". \n";
+	cout << "My number was " << myNum << endl;
+}
+
+void highLowComputer() { //This simulates a computer playing the game highLow
+	int myNum = randRange(1, 101);
+	int compNum;
+	int max = 100;
+	int min = 1;
+
+	cout << "My number is " << myNum << endl;
+		
+	cout << "Pick a number between 1 and 100, inclusive.\n";
+
+	//The lines that are commented out make it random
+	//compNum = randRange(min, max);
+	compNum = (max + min) / 2;
+	cout << compNum << endl;
+
+	while (compNum != myNum) {
+		if (compNum < myNum) {
+			cout << "Your number was too low. Try again." << endl;
+			min = compNum;
+			//compNum = randRange(min, max);
+			compNum = (max + min) / 2;
+			cout << compNum << endl;
+		}
+		else{
+			cout << "Your number was too high. Try again." << endl;
+			max = compNum;
+			//compNum = randRange(min, max);
+			compNum = (max + min) / 2;
+			cout << compNum << endl;
+		}
+	}
+
+	cout << "Correct! You picked " << compNum << ". \n";
+	cout << "My number was " << myNum << endl;
+}
+
+string slotValues(int n) { //These are the values that each slot can be in the slot machine
+	string result = "";
+	switch (n) {
+	case 0:
+		result = "apple";
+		break;
+	case 1:
+		result = "cherry";
+		break;
+	case 2:
+		result = "block";
+		break;
+	case 3:
+		result = "nothing";
+		break;
+	case 4:
+		result = "seven";
+		break;
+	default:
+		result = "error";
+		break;
+	}
+
+	return result;
+}
+
+void slotMachine() {
+	cout << "Hello, time to play! \n"; //The slot machines have 3 slots, with 5 choices each
+	string slotOne = slotValues(randRange(0, 5));
+	string slotTwo = slotValues(randRange(0, 5));
+	string slotThree = slotValues(randRange(0, 5));
+	cout << "Slot One: " << slotOne << "\n";
+	cout << "Slot Two: " <<  slotTwo << "\n";
+	cout << "Slot Three: " << slotThree << "\n";
 }
 int main() {
-	srand(time(NULL));
+	srand(time(NULL)); //must always call srand() once; time(NULL) is a seed
+	/*
 	for (int i = 0; i < 50; i++) {
 		coinFlip();
 	}
+
+	highLowPlayer();
+	highLowComputer();
+
+	*/
+
+	int choice;
+	do {
+		slotMachine();
+		cout << "Play again? Press 1 for yes and 2 for no.\n";
+		cin >> choice;
+	} while (choice == 1);
+	
 	cin.get();
 	return 0;
 }
