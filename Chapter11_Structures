@@ -1,0 +1,88 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+int randRange(int low, int high) {
+	return rand() % (high - low) + low;
+}
+
+void insertionSort(int values[], int size) {
+	for (int i = 0; i < size - 1; i++) {
+		//find the lowest value in the remaining elements
+		int mindex = i;
+		for (int j = i + 1; j < size; j++) {
+			if (values[j] = values[mindex])
+				mindex = j;
+		}
+
+		//swap current value with the lowest value
+		int temp = values[i];
+		values[i] = values[mindex];
+		values[mindex] = temp;
+	}
+}
+
+//format of a structure:
+struct myFirstStruct {
+	int xValue;
+	int yValue;
+	string name;
+}; //always end with semicolon
+
+myFirstStruct getNewShip() {
+	myFirstStruct ship;
+	ship.xValue = randRange(8, 16);
+	ship.yValue = randRange(1, 9);
+	ship.name = "New Ship";
+
+	return ship;
+}
+
+/* When passing a structure into a function, the structure gets copied,
+	so, the changes made to the original structure will be lost; therefore,
+	the function needs to return a copy of the structure after modifying it.
+*/
+
+myFirstStruct changeX(myFirstStruct ship) {
+	ship.xValue += 10;
+	return ship;
+}
+
+void shipDisplayed(myFirstStruct ship) {
+	cout << "The name of this spaceship is " << ship.name
+		<< " and the coordinates are: (" << ship.xValue << ", " << ship.yValue
+		<< ")." << endl;
+}
+
+int main() {
+	//always call srand() once, just once, to initialize a random seed
+	srand(time(NULL));
+
+	cout << randRange(8, 16) << endl;
+	/*
+	myFirstStruct spaceShip[8];
+
+	for (int i = 0; i < 8; i++) {
+		spaceShip[i].xValue = i;
+		spaceShip[i].yValue = 2 * i;
+		
+		cout << "Please enter a name for spaceship " << i << endl;
+		cin >> spaceShip[i].name;
+		cout << "The name of spaceship " << i << " is " << spaceShip[i].name
+			<< " and the coordinates are: (" << spaceShip[i].xValue << ", " << spaceShip[i].yValue
+			<< ")." << endl;
+	}
+	*/
+
+	myFirstStruct ship1 = getNewShip();
+	shipDisplayed(ship1);
+
+	myFirstStruct ship2 = changeX(ship1);
+	shipDisplayed(ship2);
+
+	cin.get();
+	return 0;
+}
