@@ -1,0 +1,91 @@
+#include <iostream>
+#include <string>
+#include <ctime>
+#include <cstdlib>
+
+using namespace std;
+
+//does not change the original variables; simply makes copies of them
+void swap1(int left, int right) {
+	int temp = left;
+	left = right;
+	right = temp;
+}
+
+//changes the original variables; does not make copies
+void swap2(int *p_left, int *p_right) {
+	int temp = *p_left;
+	*p_left = *p_right;
+	*p_right = temp;
+}
+
+struct BigStructure {
+	int x[5];
+};
+
+BigStructure getNewStructure() {
+	BigStructure ship;
+	for (int i = 0; i < 5; i++)
+		ship.x[i] = i + 1;
+	return ship;
+}
+
+void takeStruct(BigStructure &myStructure) {
+	myStructure.x[0] = 8;
+}
+
+void swap3(int& left, int& right) {
+	int temp = left;
+	left = right;
+	right = temp;
+}
+
+int main() {
+	BigStructure ship = getNewStructure();
+	takeStruct(ship);
+	cout << ship.x[0] << endl;
+
+	int x;
+	int *p_x = &x; //This is initializing the pointer variable to address of x
+	//The address that p_x points to is now the address of x
+
+	*p_x = 2; //The link at *p_x = 2
+	cout << x << endl;
+
+	int y = 5;
+	p_x = &y; //Since the pointer variable was already initialized, the asterisk
+				//is not required to change the address valued for p_x, but is required
+				//when changing the value at the address. Confused yet?
+	//This should output "5"
+	cout << *p_x << endl;
+	cout << "This outputs the address: " << p_x << endl;
+
+	int *p_a;
+	int a = 8;
+	p_a = &a;
+	*p_a = 12;
+	cout << "a = " << a << endl;
+
+	int *pointer = NULL;
+
+	if (pointer != NULL)
+		*pointer = 2;
+
+	int left = 8;
+	int right = 2;
+
+	swap1(left, right);
+	cout << "After swap 1, left = " << left << " and right = " << right << endl;
+
+	swap2(&left, &right);
+	cout << "After swap 2, left = " << left << " and right = " << right << endl;
+
+	int normal = 5;
+	int &ref = normal; //references must be initialized as they are declared; 
+						//they must always refer to a valid address.
+						//*A REFERENCE PERMANENTLY REFERS TO THE SAME VARIABLE; 
+						//YOU CANNOT CHANGE THE ADDRESS OF A REFERENCE VARIABLE
+
+	cin.get();
+	return 0;
+}
