@@ -1,0 +1,62 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+int randRange(int low, int high) {
+	return rand() % (high - low) + low;
+}
+
+struct Unit {
+	int level;
+	int skill;
+	int hp;
+};
+
+enum Names {
+	Eeny, Meeny, Miny, Moe
+};
+
+Unit getNewUnit() {
+	Unit character;
+	character.level = 1;
+	character.skill = 1;
+	character.hp = 10;
+	return character;
+}
+
+void levelUp(Unit& character) {
+	character.level += 1;
+	character.hp += randRange(1, 7);
+}
+
+//The parameters would have to be addresses in memory; &ref
+void swap1(int *left, int *right) {
+	int temp = *left;
+	*left = *right;
+	*right = temp;
+}
+
+void swap2(int& left, int& right) {
+	int temp = left;
+	left = right;
+	right = temp;
+}
+
+int main() {
+	srand(time(NULL));
+
+	int *p_int = new int;
+	int abra = 8;
+	p_int = &abra;
+	*p_int = 10;
+	
+	delete p_int; //The memory address this pointed to is no longer in use
+	p_int = NULL; //This is here so that if you accidentally try to dereference the pointer again,
+					//the program will crash instantly, so you can know what the bug is
+
+	cin.get();
+	return 0;
+}
