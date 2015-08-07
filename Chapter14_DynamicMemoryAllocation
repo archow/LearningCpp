@@ -45,17 +45,44 @@ void swap2(int& left, int& right) {
 	right = temp;
 }
 
-int main() {
-	srand(time(NULL));
+int *growArray(int *pValues, int currentSize) {
+	int *pNewValues = new int[currentSize * 2];
+	for (int i = 0; i < currentSize; i++) {
+		pNewValues[i] = pValues[i];
+	}
+	delete pValues;
+	return pNewValues;
+}
 
-	int *p_int = new int;
-	int abra = 8;
-	p_int = &abra;
-	*p_int = 10;
-	
-	delete p_int; //The memory address this pointed to is no longer in use
-	p_int = NULL; //This is here so that if you accidentally try to dereference the pointer again,
-					//the program will crash instantly, so you can know what the bug is
+int main() {
+	int numbers[8];
+	int *p_numbers = numbers; // points to a statically declared array
+	int *p_array = new int[3]; // points to memory
+	delete[] p_array; // you DO NOT want to free a pointer pointing to a statically
+					// declared array
+	p_array = NULL;
+
+	int *p_normalvalue;
+	int normalvalue = 8;
+	p_normalvalue = &normalvalue;
+	*p_normalvalue = 103;
+	cout << "normalvalue is " << normalvalue << endl;
+
+	int nextElement = 0;
+	int size = 10;
+	int *p_values = new int[size];
+	int val;
+	cout << "Please enter a number: ";
+	cin >> val;
+	while (val > 0) {
+		if (size == nextElement + 1) {
+			p_values = growArray(p_values, size);
+		}
+		p_values[nextElement] = val;
+		nextElement++;
+		cout << "\nPlease enter a number (or 0 to exit): ";
+		cin >> val;
+	}
 
 	cin.get();
 	return 0;
